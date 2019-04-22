@@ -10,3 +10,5 @@ Currently I have implemented only following APIs,
 2) Install mysql
 3) Create database restapp
 4) And run project using maven-build
+
+In future I have planning for to work this repo with https://github.com/pravin02/Admin-lte-starter-template this one.
