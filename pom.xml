@@ -38,9 +38,6 @@
 		</dependency>
 		<!-- dependencies for spring boot logging starter end -->
 
-
-
-
 		<!-- dependencies for spring boot web starter start -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -110,6 +107,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webflux -->
