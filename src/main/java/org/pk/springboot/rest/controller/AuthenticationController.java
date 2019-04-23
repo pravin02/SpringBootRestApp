@@ -34,7 +34,7 @@ public class AuthenticationController {
 		HttpStatus httpStatus = HttpStatus.OK;
 		try {
 			object = userService.findByEmailAndPassword(object.getEmail(), object.getPassword());
-			response = new Response(true, object, "");
+			response = new Response(true, object, "Logged in succesfully.");
 		} catch (LoginFailedException lfe) {
 			httpStatus = HttpStatus.NOT_FOUND;
 			response = new Response(false, null, lfe.getMessage());

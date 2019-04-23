@@ -31,7 +31,7 @@ public class UpdatePasswordController {
 					MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<Response> add(@RequestBody UserModel user) {
 		Response response = null;
-		HttpStatus httpStatus = HttpStatus.OK;
+		HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
 
 		User object;
 		try {
@@ -40,10 +40,11 @@ public class UpdatePasswordController {
 			if (!object.getPassword().equals(user.getPassword())) {
 				response = new Response(false, null, "Invalid Old Password.");
 			} else {
-				if (!user.getNewPassword().equals(user.getConfirmPassword())) {
+				if (!user.getConfirmPassword().equals(user.getNewPassword())) {
 					response = new Response(false, null, "New password & comfirm password must be same.");
 				} else {
-					if (userService.updatePassword(user.getUserId(), user.getConfirmPassword())) {
+					if (userService.updatePassword(user.getUserId(), user.getNewPassword())) {
+						httpStatus = HttpStatus.OK;
 						response = new Response(true, null, "Password Updated Successfully.");
 					} else
 						response = new Response(true, null, "Error While updating Password.");
@@ -51,7 +52,6 @@ public class UpdatePasswordController {
 			}
 		} catch (UserNotFoundException e) {
 			e.printStackTrace();
-			httpStatus = HttpStatus.BAD_REQUEST;
 			response = new Response(false, null, "New password & comfirm password must be same.");
 		}
 		return new ResponseEntity<Response>(response, httpStatus);

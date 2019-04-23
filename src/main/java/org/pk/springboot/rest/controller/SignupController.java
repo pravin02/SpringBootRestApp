@@ -1,7 +1,7 @@
 package org.pk.springboot.rest.controller;
 
 import org.pk.springboot.rest.domian.User;
-import org.pk.springboot.rest.exception.EmailExistsException;
+import org.pk.springboot.rest.exception.EmailNotExistsException;
 import org.pk.springboot.rest.other.Response;
 import org.pk.springboot.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +27,12 @@ public class SignupController {
 		HttpStatus httpStatus = HttpStatus.OK;
 		try {
 			userService.findByEmail(object.getEmail());
+			response = new Response(false, null, "Email exists in database");
+
+		} catch (EmailNotExistsException enfe) {
+			httpStatus = HttpStatus.NOT_FOUND;
 			object = userService.save(object);
 			response = new Response(true, object, "");
-		} catch (EmailExistsException enfe) {
-			httpStatus = HttpStatus.NOT_FOUND;
-			response = new Response(false, null, "Email exists in database");
 		}
 
 		return new ResponseEntity<Response>(response, httpStatus);

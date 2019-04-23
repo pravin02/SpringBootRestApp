@@ -12,12 +12,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * @author Pravin P Patil
  *
  */
 @Data
+@ToString
 @Entity
 @Table(name = "user")
 public class User implements Serializable {

@@ -1,7 +1,7 @@
 package org.pk.springboot.rest.service;
 
 import org.pk.springboot.rest.domian.User;
-import org.pk.springboot.rest.exception.EmailExistsException;
+import org.pk.springboot.rest.exception.EmailNotExistsException;
 import org.pk.springboot.rest.exception.LoginFailedException;
 import org.pk.springboot.rest.exception.UserNotFoundException;
 import org.pk.springboot.rest.repository.UserRepository;
@@ -36,12 +36,12 @@ public class UserService {
 	/**
 	 * @param email
 	 * @return
-	 * @throws EmailExistsException
+	 * @throws EmailNotExistsException
 	 */
-	public User findByEmail(String email) throws EmailExistsException {
-		User user = userRepository.findByEmail(email);
-		if (user != null)
-			throw new EmailExistsException("Email not found in system");
+	public User findByEmail(String email) throws EmailNotExistsException {
+		User user = userRepository.findByEmail(email);		
+		if (user == null)
+			throw new EmailNotExistsException("Email not found in system");
 		return user;
 	}
 
@@ -62,7 +62,10 @@ public class UserService {
 	 * @return
 	 */
 	public User save(User user) {
-		return userRepository.save(user);
+		user.setPassword(userRepository.findOne(user.getUserId()).getPassword());
+		user = userRepository.save(user);
+		user.setPassword(null);
+		return user;
 	}
 
 	/**
