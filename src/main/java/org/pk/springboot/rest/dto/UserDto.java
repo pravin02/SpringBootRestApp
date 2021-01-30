@@ -39,4 +39,22 @@ public class UserDto implements Serializable {
         this.setCity(user.getCity());
         this.setCompany(user.getCompany());
     }
+
+    /**
+     * @param userDto
+     * @return User object from UserDto
+     */
+    public static User toUserForSave(UserDto userDto) {
+        User user = new User();
+        user.setUserId(userDto.getUserId());
+        user.setFullName(userDto.getFullName());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(userDto.getPassword());
+        user.setRole(userDto.getRole());
+        user.setAddress(userDto.getAddress());
+        user.setMobileNumber(userDto.getMobileNumber());
+        user.setCity(userDto.getCity());
+        user.setCompany(userDto.getCompany());
+        return user;
+    }
 }
