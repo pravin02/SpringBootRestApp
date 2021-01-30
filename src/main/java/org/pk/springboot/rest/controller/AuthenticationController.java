@@ -1,6 +1,5 @@
 package org.pk.springboot.rest.controller;
 
-import org.pk.springboot.rest.domian.User;
 import org.pk.springboot.rest.dto.UserDto;
 import org.pk.springboot.rest.exception.LoginFailedException;
 import org.pk.springboot.rest.other.Response;
@@ -14,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author Pravin P Patil
+ */
 @RestController
 @RequestMapping("/api/authentication")
 public class AuthenticationController {

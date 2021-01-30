@@ -1,6 +1,6 @@
 package org.pk.springboot.rest.controller;
 
-import org.pk.springboot.rest.domian.User;
+import org.pk.springboot.rest.dto.UserDto;
 import org.pk.springboot.rest.exception.EmailNotExistsException;
 import org.pk.springboot.rest.other.Response;
 import org.pk.springboot.rest.service.UserService;
@@ -13,28 +13,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author Pravin P Patil
+ */
 @RestController
 @RequestMapping("/api/signup")
 public class SignupController {
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@RequestMapping(value = "", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE,
-			MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<Response> add(@RequestBody User object) {
-		Response response = null;
-		HttpStatus httpStatus = HttpStatus.OK;
-		try {
-			userService.findByEmail(object.getEmail());
-			response = new Response(false, null, "Email exists in database");
+    /**
+     * @param object
+     * @return
+     */
+    @RequestMapping(value = "", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<Response> add(@RequestBody UserDto object) {
+        Response response = null;
+        HttpStatus httpStatus = HttpStatus.OK;
+        try {
+            userService.findByEmail(object.getEmail());
+            response = new Response(false, null, "Email exists in database");
 
-		} catch (EmailNotExistsException enfe) {
-			httpStatus = HttpStatus.NOT_FOUND;
-			object = userService.save(object);
-			response = new Response(true, object, "");
-		}
+        } catch (EmailNotExistsException e) {
+            httpStatus = HttpStatus.NOT_FOUND;
+            /**
+             * converting dto to user for insertion using userService and converting again return value to Dto for response
+             */
+            object = new UserDto(userService.save(UserDto.toUserForSave(object)));
+            response = new Response(true, object, "");
+        }
 
-		return new ResponseEntity<Response>(response, httpStatus);
-	}
+        return new ResponseEntity<>(response, httpStatus);
+    }
 }
