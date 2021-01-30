@@ -7,12 +7,11 @@ import org.pk.springboot.rest.other.Response;
 import org.pk.springboot.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * @author Pravin P Patil
@@ -28,20 +27,17 @@ public class ForgotPasswordController {
      * @param user
      * @return
      */
-    @RequestMapping(value = "", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE,
-            MediaType.APPLICATION_XML_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE,
-            MediaType.APPLICATION_XML_VALUE})
+    @PostMapping
+
     public ResponseEntity<Response> forgotPassword(@RequestBody UserDto user) {
         Response response = null;
         HttpStatus httpStatus = HttpStatus.OK;
         User object = null;
         try {
-            System.out.println(user);
             object = userService.findByEmail(user.getEmail());
 
             response = new Response(true, null, "Your password is : " + object.getPassword());
         } catch (EmailNotExistsException e) {
-            e.printStackTrace();
             httpStatus = HttpStatus.NOT_FOUND;
             response = new Response(false, null, "Email not exists in database");
         }
