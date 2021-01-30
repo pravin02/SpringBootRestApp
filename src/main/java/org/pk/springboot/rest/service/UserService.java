@@ -1,6 +1,7 @@
 package org.pk.springboot.rest.service;
 
 import org.pk.springboot.rest.domian.User;
+import org.pk.springboot.rest.dto.UserDto;
 import org.pk.springboot.rest.exception.EmailNotExistsException;
 import org.pk.springboot.rest.exception.LoginFailedException;
 import org.pk.springboot.rest.exception.UserNotFoundException;
@@ -24,8 +25,8 @@ public class UserService {
 	 * @return
 	 * @throws LoginFailedException
 	 */
-	public User findByEmailAndPassword(String email, String password) throws LoginFailedException {
-		User user = userRepository.findByEmailAndPassword(email, password);
+	public UserDto findByEmailAndPassword(String email, String password) throws LoginFailedException {
+		UserDto user = new UserDto(userRepository.findByEmailAndPassword(email, password));
 		if (user != null) {
 			user.setPassword(null);
 			return user;
