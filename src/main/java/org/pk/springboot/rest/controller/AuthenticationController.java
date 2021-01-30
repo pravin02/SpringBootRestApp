@@ -39,6 +39,6 @@ public class AuthenticationController {
 			httpStatus = HttpStatus.NOT_FOUND;
 			response = new Response(false, null, lfe.getMessage());
 		}
-		return new ResponseEntity<Response>(response, httpStatus);
+		return new ResponseEntity<>(response, httpStatus);
 	}
 }

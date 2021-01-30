@@ -7,15 +7,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
 /**
- * @author PKCORP
+ * @author Pravin P Patil
  *
  */
 @Component
@@ -23,20 +26,21 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-	/**
-	 * @return Docklet
-	 * @since v2
-	 */
-	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any()).build().apiInfo(apiInfo()).enable(true).enableUrlTemplating(true);
-	}
-
-	private ApiInfo apiInfo() {
-		@SuppressWarnings("deprecation")
-		ApiInfo apiInfo = new ApiInfo("Spring Boot Rest API Application", "Some custom description of API.",
-				"API POS", "Terms of service", "prvnpatil11@gmail.com", "License of API", "API license URL");
-		return apiInfo;
-	}
+	 @Bean
+	    public Docket api() {
+	        return new Docket(DocumentationType.SWAGGER_2).select()
+	            .apis(RequestHandlerSelectors
+	                .basePackage("net.guides.springboot2.springboot2swagger2.controller"))
+	            .paths(PathSelectors.regex("/.*"))
+	            .build().apiInfo(apiEndPointsInfo());
+	    }
+	    private ApiInfo apiEndPointsInfo() {
+	        return new ApiInfoBuilder().title("Spring Boot REST API")
+	            .description("Employee Management REST API")
+	            .contact(new Contact("Pravin P Patil", "www.javaguides.net", "ramesh24fadatare@gmail.com"))
+	            .license("Apache 2.0")
+	            .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+	            .version("1.0.0")
+	            .build();
+	    }
 }

@@ -1,3 +1,4 @@
+
 package org.pk.springboot.rest;
 
 import org.springframework.context.annotation.ComponentScan;
@@ -5,16 +6,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /**
  * @author PKCORP
  *
  */
 @Component
+
 @Configuration
+
 @ComponentScan
-public class WebMvcConfig extends WebMvcConfigurerAdapter {
+public class WebMvcConfig extends WebMvcConfigurationSupport {
 
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
@@ -23,6 +27,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 				.mediaType("xml", MediaType.APPLICATION_XML).mediaType("json", MediaType.APPLICATION_JSON);
 	}
 
+	@Override
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
 	/*
 	 * @Bean public EmbeddedServletContainerCustomizer containerCustomizer() {
 	 * return (container -> { container.setPort(1010); }); }
