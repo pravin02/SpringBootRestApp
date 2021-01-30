@@ -6,7 +6,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>SpringBootRestApp</name>
     <description>SpringBootRestApp</description>
-    <!-- <packaging>war</packaging> -->
     <packaging>jar</packaging>
 
     <parent>
@@ -30,7 +29,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <!--<scope>provided</scope> -->
         </dependency>
 
         <!-- dependencies for spring boot logging starter start -->
