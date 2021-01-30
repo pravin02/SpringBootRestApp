@@ -21,7 +21,7 @@ public class CityController {
     @Autowired
     private CityService cityService;
 
-    @GetMapping(value = "/{stateId}")
+    @GetMapping("/{stateId}")
     public ResponseEntity<Response> findAllByStateId(@PathVariable("stateId") int stateId) {
         Response response = null;
         HttpStatus httpStatus = HttpStatus.OK;
