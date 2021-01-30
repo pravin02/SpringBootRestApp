@@ -28,9 +28,7 @@ public class UserService {
         User user = userRepository.findByEmailAndPassword(email, password);
         if (user != null) {
             UserDto userDto = new UserDto(user);
-            if (userDto != null) {
-                return userDto;
-            }
+            return userDto;
         }
         throw new LoginFailedException("Invalid Email or Password");
     }
