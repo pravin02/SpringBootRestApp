@@ -2,7 +2,6 @@ package org.pk.springboot.rest;
 
 import java.util.Properties;
 
-import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -21,76 +20,75 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory", 
-transactionManagerRef = "transactionManager")
+@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory",
+        transactionManagerRef = "transactionManager")
 @EnableTransactionManagement
 public class JpaConfiguration {
 
-	@Bean
-	@Primary
-	public DataSourceProperties dataSourceProperties() {
-		DataSourceProperties dataSourceProperties = new DataSourceProperties();
-		
-		dataSourceProperties.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSourceProperties.setUrl("jdbc:mysql://localhost:3306/restapp");
-		dataSourceProperties.setDataUsername("root");
-		dataSourceProperties.setDataPassword("root");
-		return dataSourceProperties;
-	}
+    String[] packagesToScan = new String[]{"org.pk.springboot.rest"};
 
-	@Bean
-	@Primary
-	public DataSource dataSource() {
-		DataSource dataSource = DataSourceBuilder.create().driverClassName("com.mysql.jdbc.Driver")
-				.url("jdbc:mysql://localhost:3306/restapp").username("root")
-				.password("root").build();
+    @Bean
+    @Primary
+    public DataSourceProperties dataSourceProperties() {
+        DataSourceProperties dataSourceProperties = new DataSourceProperties();
 
-		return dataSource;
-	}
+        dataSourceProperties.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSourceProperties.setUrl("jdbc:mysql://localhost:3306/restapp");
+        dataSourceProperties.setDataUsername("root");
+        dataSourceProperties.setDataPassword("root");
+        return dataSourceProperties;
+    }
 
-	/*
-	 * Entity Manager Factory setup.
-	 */
-	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws NamingException {
-		LocalContainerEntityManagerFactoryBean factoryBean = 
-				new LocalContainerEntityManagerFactoryBean();
-		factoryBean.setDataSource(dataSource());
-		factoryBean.setPackagesToScan(new String[] { "org.pk.springboot.rest" });
-		factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
-		factoryBean.setJpaProperties(jpaProperties());
-		return factoryBean;
-	}
+    @Bean
+    @Primary
+    public DataSource dataSource() {
+        return DataSourceBuilder.create().driverClassName("com.mysql.jdbc.Driver")
+                .url("jdbc:mysql://localhost:3306/restapp").username("root")
+                .password("root").build();
+    }
 
-	/*
-	 * Provider specific adapter.
-	 */
-	@Bean
-	public JpaVendorAdapter jpaVendorAdapter() {
-		HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
-		return hibernateJpaVendorAdapter;
-	}
+    /*
+     * Entity Manager Factory setup.
+     */
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean factoryBean =
+                new LocalContainerEntityManagerFactoryBean();
+        factoryBean.setDataSource(dataSource());
+        factoryBean.setPackagesToScan(packagesToScan);
+        factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
+        factoryBean.setJpaProperties(jpaProperties());
+        return factoryBean;
+    }
 
-	/*
-	 * Here you can specify any provider specific properties.
-	 */
-	private Properties jpaProperties() {
-		Properties properties = new Properties();
-		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-		properties.put("hibernate.hbm2ddl.auto", "update");
-		properties.put("hibernate.show_sql", false);
-		properties.put("hibernate.format_sql", false);
+    /*
+     * Provider specific adapter.
+     */
+    @Bean
+    public JpaVendorAdapter jpaVendorAdapter() {
+        return new HibernateJpaVendorAdapter();
+    }
 
-		properties.put("datasource.pcpointapp.maxPoolSize", 1);
-		return properties;
-	}
+    /*
+     * Here you can specify any provider specific properties.
+     */
+    private Properties jpaProperties() {
+        Properties properties = new Properties();
+        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.show_sql", false);
+        properties.put("hibernate.format_sql", false);
 
-	@Bean
-	@Autowired
-	public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
-		JpaTransactionManager txManager = new JpaTransactionManager();
-		txManager.setEntityManagerFactory(emf);
-		return txManager;
-	}
+        properties.put("datasource.pcpointapp.maxPoolSize", 1);
+        return properties;
+    }
+
+    @Bean
+    @Autowired
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+        JpaTransactionManager txManager = new JpaTransactionManager();
+        txManager.setEntityManagerFactory(emf);
+        return txManager;
+    }
 
 }
