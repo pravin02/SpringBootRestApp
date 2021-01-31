@@ -4,10 +4,13 @@ import org.pk.springboot.rest.domian.User;
 import org.pk.springboot.rest.dto.UserDto;
 import org.pk.springboot.rest.exception.EmailNotExistsException;
 import org.pk.springboot.rest.exception.LoginFailedException;
+import org.pk.springboot.rest.exception.UserAlreadyExistsException;
 import org.pk.springboot.rest.exception.UserNotFoundException;
 import org.pk.springboot.rest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * @author Pravin P Patil
@@ -49,22 +52,47 @@ public class UserService {
      * @return
      * @throws UserNotFoundException
      */
-    public User findByUserId(int userId) throws UserNotFoundException {
-        User user = userRepository.findOne(userId);
-        if (user == null)
-            throw new UserNotFoundException("User Not found");
-        return user;
+    public User findByUserId(Integer userId) throws UserNotFoundException {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        }
+        throw new UserNotFoundException("User Not found");
+
     }
 
     /**
      * @param user
      * @return
      */
-    public User save(User user) {
-        user.setPassword(userRepository.findOne(user.getUserId()).getPassword());
-        user = userRepository.save(user);
-        user.setPassword(null);
-        return user;
+    public User save(User user) throws UserAlreadyExistsException {
+        Optional<User> userOptional = userRepository.findById(user.getUserId());
+        if (userOptional.isPresent()) {
+            User newUser = userOptional.get();
+            user.setPassword(newUser.getPassword());
+            user = userRepository.save(user);
+            user.setPassword(null);
+            return user;
+        }
+        throw new UserAlreadyExistsException("User already exist");
+    }
+
+    /**
+     * @param userId
+     * @param user
+     * @return
+     * @throws UserNotFoundException
+     */
+    public User update(Integer userId, User user) throws UserNotFoundException {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User newUser = userOptional.get();
+            user.setPassword(newUser.getPassword());
+            user = userRepository.save(user);
+            user.setPassword(null);
+            return user;
+        }
+        throw new UserNotFoundException("User Not found");
     }
 
     /**

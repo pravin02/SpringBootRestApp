@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class EmailValidator {
 
-    public static final String REGEX = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+    public static final String REGEX = "^[a-z0-9.!#$%&'*]";
     public static final Object PATTERN = Pattern.compile(REGEX, Pattern.CASE_INSENSITIVE);
 
     private EmailValidator() {

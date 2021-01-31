@@ -12,3 +12,5 @@ Currently I have implemented only following APIs,
 4) And run project using maven-build
 
 In future I have planning for to work this repo with https://github.com/pravin02/Admin-lte-starter-template this one.
+
+public static final String REGEX = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";

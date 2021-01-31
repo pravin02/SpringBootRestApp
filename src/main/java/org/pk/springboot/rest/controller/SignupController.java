@@ -2,6 +2,7 @@ package org.pk.springboot.rest.controller;
 
 import org.pk.springboot.rest.dto.UserDto;
 import org.pk.springboot.rest.exception.EmailNotExistsException;
+import org.pk.springboot.rest.exception.UserAlreadyExistsException;
 import org.pk.springboot.rest.other.Response;
 import org.pk.springboot.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +37,16 @@ public class SignupController {
 
         } catch (EmailNotExistsException e) {
             httpStatus = HttpStatus.NOT_FOUND;
-            /**
-             * converting dto to user for insertion using userService and converting again return value to Dto for response
-             */
-            object = new UserDto(userService.save(UserDto.toUserForSave(object)));
-            response = new Response(true, object, "");
+            try {
+                /**
+                 * converting dto to user for insertion using userService and converting again return value to Dto for response
+                 */
+                object = new UserDto(userService.save(UserDto.toUserForSave(object)));
+                response = new Response(true, object, "User registered successfully.");
+            } catch (UserAlreadyExistsException uaee) {
+                response = new Response(false, null, uaee.getMessage());
+            }
         }
-
         return new ResponseEntity<>(response, httpStatus);
     }
 }

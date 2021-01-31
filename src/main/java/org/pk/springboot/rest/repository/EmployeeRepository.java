@@ -9,14 +9,13 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author Pravin P Patil
- *
  */
 @Repository
 public interface EmployeeRepository extends JpaRepository<User, Integer> {
 
-	/**
-	 * @param userRole
-	 * @return
-	 */
-	public List<User> findByRole(UserRole userRole);
+    /**
+     * @param userRole
+     * @return
+     */
+    List<User> findByRole(UserRole userRole);
 }

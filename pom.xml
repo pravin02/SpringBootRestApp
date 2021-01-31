@@ -11,15 +11,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.6.RELEASE</version>
+        <version>2.3.7.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <jackson.version>2.8.9</jackson.version>
-        <java.version>1.11</java.version>
         <sonar.login>admin</sonar.login>
         <sonar.password>admin@01</sonar.password>
     </properties>
@@ -52,13 +50,11 @@
         </dependency>
         <!-- dependencies for Spring data support end -->
 
-
-        <!-- dependencies for derby database support start -->
-
         <!-- dependencies for mysql database support start -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.37</version>
             <scope>runtime</scope>
         </dependency>
         <!-- dependencies for mysql database support end -->
@@ -81,39 +77,17 @@
         </dependency>
         <!-- dependencies for API documentation automation end -->
 
-        <!-- dependencies for message converters start -->
-        <!-- json -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.7.2</version><!--$NO-MVN-MAN-VER$ -->
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.9.10.7</version><!--$NO-MVN-MAN-VER$ -->
-        </dependency>
-        <!-- xml -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-xml</artifactId>
-            <version>2.7.8</version><!--$NO-MVN-MAN-VER$ -->
-        </dependency>
-        <!-- dependencies for message converters end -->
-
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.5</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>

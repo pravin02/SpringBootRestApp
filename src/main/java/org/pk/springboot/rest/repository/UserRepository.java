@@ -11,31 +11,30 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author Pravin P Patil
- *
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-	/**
-	 * @param email
-	 * @param password
-	 * @return
-	 */
-	public User findByEmailAndPassword(String email, String password);
+    /**
+     * @param email
+     * @param password
+     * @return
+     */
+    User findByEmailAndPassword(String email, String password);
 
-	/**
-	 * @param email
-	 * @return
-	 */
-	public User findByEmail(String email);
+    /**
+     * @param email
+     * @return
+     */
+    User findByEmail(String email);
 
-	/**
-	 * @param userId
-	 * @param newPassword
-	 * @return
-	 */
-	@Transactional
-	@Modifying
-	@Query("UPDATE User u set u.password = :password where u.userId = :userId")
-	public int updatePassword(@Param("userId") int userId, @Param("password") String newPassword);
+    /**
+     * @param userId
+     * @param newPassword
+     * @return
+     */
+    @Transactional
+    @Modifying
+    @Query("UPDATE User u set u.password = :password where u.userId = :userId")
+    int updatePassword(@Param("userId") int userId, @Param("password") String newPassword);
 }

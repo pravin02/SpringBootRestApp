@@ -27,7 +27,7 @@ public class State implements Serializable {
 	@Column(unique = false, nullable = false, length = 45)
 	private String stateName;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "countryId", referencedColumnName = "countryId")
 	private Country country;	
 	
