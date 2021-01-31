@@ -18,6 +18,13 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <mysql.version>5.1.37</mysql.version>
+        <swagger.version>2.8.0</swagger.version>
+        <lombok.version>1.18.6</lombok.version>
+        <jacoco.version>0.8.1</jacoco.version>
+
+        <sonar.version>3.7.0.1746</sonar.version>
         <sonar.login>admin</sonar.login>
         <sonar.password>admin@01</sonar.password>
     </properties>
@@ -50,11 +57,19 @@
         </dependency>
         <!-- dependencies for Spring data support end -->
 
+        <!-- dependencies for spring boot web starter start -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <!-- dependencies for spring boot web starter end -->
+
+
         <!-- dependencies for mysql database support start -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.37</version>
+            <version>${mysql.version}</version>
             <scope>runtime</scope>
         </dependency>
         <!-- dependencies for mysql database support end -->
@@ -63,17 +78,17 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.8.0</version>
+            <version>${swagger.version}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.8.0</version>
+            <version>${swagger.version}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-bean-validators</artifactId>
-            <version>2.8.0</version>
+            <version>${swagger.version}</version>
         </dependency>
         <!-- dependencies for API documentation automation end -->
 
@@ -93,14 +108,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.6</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
         </dependency>
 
     </dependencies>
@@ -114,12 +123,12 @@
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.7.0.1746</version>
+                <version>${sonar.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.1</version>
+                <version>${jacoco.version}</version>
             </plugin>
         </plugins>
     </build>

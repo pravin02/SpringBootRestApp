@@ -10,22 +10,22 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author Pravin P Patil
- *
  */
 @Service
 public class CountryService {
 
-	@Autowired
-	private CountryRepository countryRepository;
+    @Autowired
+    private CountryRepository countryRepository;
 
-	/**
-	 * @return list of countries otherwise will throw CountryNotFoundException
-	 * @throws CountryNotFoundException
-	 */
-	public List<Country> findAll() throws CountryNotFoundException {
-		List<Country> countries = countryRepository.findAll();
-		if (countries != null && !countries.isEmpty())
-			return countries;
-		throw new CountryNotFoundException("countries not found");
-	}
+    /**
+     * @return list of countries otherwise will throw CountryNotFoundException
+     * @throws CountryNotFoundException
+     */
+    public List<Country> findAll() throws CountryNotFoundException {
+        List<Country> countries = countryRepository.findAll();
+        if (!countries.isEmpty()) {
+            return countries;
+        }
+        throw new CountryNotFoundException("No Countries not found");
+    }
 }
