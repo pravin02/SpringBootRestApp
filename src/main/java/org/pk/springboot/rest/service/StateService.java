@@ -25,10 +25,7 @@ public class StateService {
 	 * @throws StateNotFoundException
 	 */
 	public List<State> findByCountryId(int countryId) throws StateNotFoundException {
-
-		Country country = new Country();
-		country.setCountryId(countryId);
-		List<State> states = stateRepository.findByCountry(country);
+		List<State> states = stateRepository.findAllByCountryId(countryId);
 		if (states != null && !states.isEmpty())
 			return states;
 		throw new StateNotFoundException("states not found");

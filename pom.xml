@@ -22,11 +22,14 @@
         <mysql.version>5.1.37</mysql.version>
         <swagger.version>2.8.0</swagger.version>
         <lombok.version>1.18.6</lombok.version>
-        <jacoco.version>0.8.1</jacoco.version>
+        <jacoco.version>0.8.6</jacoco.version>
 
         <sonar.version>3.7.0.1746</sonar.version>
         <sonar.login>admin</sonar.login>
         <sonar.password>admin@01</sonar.password>
+
+        <sonar.coverage.jacoco.xmlReportPaths>../SpringBootRestApp/target/site/jacoco-aggregate/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <dependencies>
@@ -98,12 +101,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.5</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -113,6 +110,7 @@
         </dependency>
 
     </dependencies>
+
 
     <build>
         <plugins>
@@ -128,7 +126,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
+
             </plugin>
         </plugins>
     </build>

@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Column;
 
 import lombok.Data;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 /**
@@ -19,7 +18,6 @@ import lombok.NoArgsConstructor;
  */
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "country")
@@ -41,13 +39,11 @@ public class Country implements Serializable {
     @Column(unique = false, nullable = false, length = 5)
     private String currency;
 
-    @Override
-    public String toString() {
-        return "Country{" +
-                "countryId=" + countryId +
-                ", countryCode=" + countryCode +
-                ", countryName=" + countryName +
-                ", currency=" + currency +
-                "}";
+    public Country(int countryId, String countryCode, String countryName, String currency) {
+        this.setCountryId(countryId);
+        this.setCountryCode(countryCode);
+        this.setCountryName(countryName);
+        this.setCurrency(currency);
     }
+
 }

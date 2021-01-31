@@ -12,7 +12,6 @@ import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +19,6 @@ import lombok.NoArgsConstructor;
  * The persistent class for the state database table.
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "state")
@@ -43,4 +41,10 @@ public class State implements Serializable {
     @JoinColumn(name = "countryId", referencedColumnName = "countryId")
     private Country country;
 
+    public State(int stateId, String stateCode, String stateName, Country country) {
+        this.setStateId(stateId);
+        this.setStateCode(stateCode);
+        this.setStateName(stateName);
+        this.setCountry(country);
+    }
 }
