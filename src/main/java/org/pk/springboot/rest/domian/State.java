@@ -31,13 +31,13 @@ public class State implements Serializable {
     @Column(unique = true, nullable = false)
     private int stateId;
 
-    @Column(unique = false, nullable = false, length = 10)
+    @Column(nullable = false, length = 10)
     private String stateCode;
 
-    @Column(unique = false, nullable = false, length = 45)
+    @Column(nullable = false, length = 45)
     private String stateName;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Country.class)
     @JoinColumn(name = "countryId", referencedColumnName = "countryId")
     private Country country;
 

@@ -30,13 +30,13 @@ public class Country implements Serializable {
     @Column(unique = true, nullable = false)
     private int countryId;
 
-    @Column(unique = false, nullable = false, length = 10)
+    @Column(unique = true, nullable = false, length = 10)
     private String countryCode;
 
-    @Column(unique = false, nullable = false, length = 45)
+    @Column(unique = true, nullable = false, length = 45)
     private String countryName;
 
-    @Column(unique = false, nullable = false, length = 5)
+    @Column(nullable = false, length = 5)
     private String currency;
 
     public Country(int countryId, String countryCode, String countryName, String currency) {

@@ -9,6 +9,7 @@ import org.pk.springboot.rest.domian.Country;
 import org.pk.springboot.rest.domian.State;
 
 import org.pk.springboot.rest.exception.StateNotFoundException;
+import org.pk.springboot.rest.repository.CountryRepository;
 import org.pk.springboot.rest.repository.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -24,12 +25,14 @@ import static org.mockito.BDDMockito.given;
 @WebMvcTest(StateService.class)
 public class StateServiceTest {
 
+    @MockBean
+    private StateRepository stateRepository;
 
     @MockBean
-    StateRepository stateRepository;
+    private CountryRepository countryRepository;
 
     @Autowired
-    StateService stateService;
+    private StateService stateService;
 
     private List<State> states;
     private Country country;
@@ -46,13 +49,15 @@ public class StateServiceTest {
 
     @Test
     public void getAllStates() throws Exception {
-        given(stateRepository.findAllByCountryId(1)).willReturn(states);
+        given(stateRepository.findAllByCountry(country)).willReturn(states);
+        given(countryRepository.getOne(1)).willReturn(country);
         Assertions.assertThat(stateService.findByCountryId(1).size()).isEqualTo(2);
     }
 
     @Test(expected = StateNotFoundException.class)
     public void getAllStatesError() throws Exception {
-        given(stateRepository.findAllByCountryId(1)).willReturn(states);
-        Assertions.assertThat(stateService.findByCountryId(2).size()).isEqualTo(2);
+        given(stateRepository.findAllByCountry(country)).willReturn(states);
+        given(countryRepository.getOne(1)).willReturn(country);
+        Assertions.assertThat(stateService.findByCountryId(2).size()).isZero();
     }
 }
