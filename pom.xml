@@ -20,7 +20,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <mysql.version>5.1.37</mysql.version>
-        <swagger.version>2.8.0</swagger.version>
+        <swagger.version>2.10.0</swagger.version>
         <lombok.version>1.18.6</lombok.version>
         <jacoco.version>0.8.6</jacoco.version>
 
